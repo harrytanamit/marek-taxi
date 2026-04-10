@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marek Taxi - Reliable Transportation Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>🚕 Marek Taxi</h1>
+            </div>
+            <nav>
+                <a href="#calculator">Calculator</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Professional Taxi Service</h2>
+            <p>Fast, reliable, and affordable transportation</p>
+        </div>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2>Calculate Your Fare</h2>
+            <div class="calculator-card">
+                <div class="form-group">
+                    <label for="pickup">Pickup Location</label>
+                    <input type="text" id="pickup" placeholder="Enter pickup address" autocomplete="off">
+                    <div id="pickup-suggestions" class="suggestions"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dropoff">Drop-off Location</label>
+                    <input type="text" id="dropoff" placeholder="Enter drop-off address" autocomplete="off">
+                    <div id="dropoff-suggestions" class="suggestions"></div>
+                </div>
+
+                <button id="calculate-btn" class="btn-primary">Calculate Fare</button>
+
+                <div id="result" class="result hidden">
+                    <div class="result-details">
+                        <div class="detail-item">
+                            <span class="label">Distance:</span>
+                            <span id="distance" class="value">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Estimated Time:</span>
+                            <span id="duration" class="value">-</span>
+                        </div>
+                        <div class="detail-item total">
+                            <span class="label">Estimated Fare:</span>
+                            <span id="fare" class="value">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="map" class="map hidden"></div>
+
+                <div id="error" class="error hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <p>Welcome to Marek Taxi! I provide professional, reliable taxi services with years of driving experience. Whether you need a ride to the airport, a business meeting, or just around town, I'm here to help.</p>
+                <div class="features">
+                    <div class="feature">
+                        <h3>🕐 Available 24/7</h3>
+                        <p>Ready to serve you anytime</p>
+                    </div>
+                    <div class="feature">
+                        <h3>💰 Fair Pricing</h3>
+                        <p>Transparent, route-based fares</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✨ Clean & Comfortable</h3>
+                        <p>Well-maintained vehicle</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contact & Booking</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📞 Phone</h3>
+                    <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p><a href="mailto:info@marektaxi.com">info@marektaxi.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <h3>⏰ Hours</h3>
+                    <p>Available 24/7</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Marek Taxi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
