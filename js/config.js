@@ -30,5 +30,5 @@ const CONFIG = {
   // Contact details
   phone: '+44 7700 000000',
   email: 'marek@example.com',
-  companyName: 'Marek Taxi',
+  companyName: 'MM Edinburgh Transfers',
 };

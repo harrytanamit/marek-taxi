@@ -5,8 +5,9 @@
 }
 
 :root {
-    --primary-color: #f59e0b;
-    --secondary-color: #1f2937;
+    --primary-color: #e8c42a;
+    --primary-dark: #c9a820;
+    --secondary-color: #252b3f;
     --text-color: #374151;
     --light-bg: #f9fafb;
     --border-color: #e5e7eb;
@@ -47,6 +48,11 @@ header .container {
     font-weight: 700;
 }
 
+.logo-img {
+    height: 48px;
+    width: auto;
+}
+
 nav {
     display: flex;
     gap: 2rem;
@@ -64,10 +70,14 @@ nav a:hover {
 }
 
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #d97706 100%);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #1a2035 100%);
     color: white;
     padding: 4rem 0;
     text-align: center;
+}
+
+.hero h2 span {
+    color: var(--primary-color);
 }
 
 .hero h2 {
@@ -184,7 +194,7 @@ nav a:hover {
 }
 
 .btn-primary:hover {
-    background: #d97706;
+    background: var(--primary-dark);
 }
 
 .btn-primary:disabled {
