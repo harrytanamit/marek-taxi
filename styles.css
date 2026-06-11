@@ -400,4 +400,147 @@ footer {
     .contact-info {
         grid-template-columns: 1fr;
     }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Tabs ──────────────────────────────────────────────────── */
+.tab-switcher {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    width: fit-content;
+}
+
+.tab-btn {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    background: white;
+    color: var(--secondary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-size: 0.95rem;
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* ── Fixed routes ───────────────────────────────────────────── */
+.fixed-intro {
+    color: #6b7280;
+    margin-bottom: 1.2rem;
+}
+
+.fixed-route-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    gap: 1rem;
+}
+
+.fixed-route-item:hover {
+    border-color: var(--primary-color);
+    background: #fffbeb;
+}
+
+.fixed-route-item.selected {
+    border-color: var(--primary-color);
+    background: #fffbeb;
+}
+
+.route-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.route-from, .route-to {
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.route-arrow {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.route-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+.btn-select-route {
+    padding: 0.4rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+}
+
+.btn-select-route:hover {
+    opacity: 0.85;
+}
+
+/* ── Booking form ───────────────────────────────────────────── */
+.booking-section {
+    padding: 2rem 0;
+    background: #f9fafb;
+}
+
+.booking-section h3 {
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.booking-summary {
+    background: #fffbeb;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-pay {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.payment-note {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
 }

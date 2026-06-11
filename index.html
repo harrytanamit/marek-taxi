@@ -1,125 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marek Taxi - Reliable Transportation Service</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marek Taxi - Reliable Transportation Service</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>🚕 Marek Taxi</h1>
+  <header>
+    <div class="container">
+      <div class="logo"><h1>🚕 Marek Taxi</h1></div>
+      <nav>
+        <a href="#calculator">Calculator</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2>Professional Taxi Service</h2>
+      <p>Fast, reliable, and affordable transportation</p>
+    </div>
+  </section>
+
+  <section id="calculator" class="calculator-section">
+    <div class="container">
+      <h2>Calculate Your Fare</h2>
+
+      <!-- Tab switcher -->
+      <div class="tab-switcher">
+        <button class="tab-btn active" id="tab-dynamic" onclick="switchTab('dynamic')">Custom Route</button>
+        <button class="tab-btn" id="tab-fixed" onclick="switchTab('fixed')">Fixed Prices</button>
+      </div>
+
+      <!-- Dynamic route tab -->
+      <div id="panel-dynamic" class="tab-panel calculator-card">
+        <div class="form-group">
+          <label for="pickup">Pickup Location</label>
+          <input type="text" id="pickup" placeholder="Enter pickup address" autocomplete="off">
+          <div id="pickup-suggestions" class="suggestions"></div>
+        </div>
+        <div class="form-group">
+          <label for="dropoff">Drop-off Location</label>
+          <input type="text" id="dropoff" placeholder="Enter drop-off address" autocomplete="off">
+          <div id="dropoff-suggestions" class="suggestions"></div>
+        </div>
+        <button id="calculate-btn" class="btn-primary">Calculate Fare</button>
+        <div id="result" class="result hidden">
+          <div class="result-details">
+            <div class="detail-item">
+              <span class="label">Distance:</span>
+              <span id="distance" class="value">-</span>
             </div>
-            <nav>
-                <a href="#calculator">Calculator</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero">
-        <div class="container">
-            <h2>Professional Taxi Service</h2>
-            <p>Fast, reliable, and affordable transportation</p>
-        </div>
-    </section>
-
-    <section id="calculator" class="calculator-section">
-        <div class="container">
-            <h2>Calculate Your Fare</h2>
-            <div class="calculator-card">
-                <div class="form-group">
-                    <label for="pickup">Pickup Location</label>
-                    <input type="text" id="pickup" placeholder="Enter pickup address" autocomplete="off">
-                    <div id="pickup-suggestions" class="suggestions"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="dropoff">Drop-off Location</label>
-                    <input type="text" id="dropoff" placeholder="Enter drop-off address" autocomplete="off">
-                    <div id="dropoff-suggestions" class="suggestions"></div>
-                </div>
-
-                <button id="calculate-btn" class="btn-primary">Calculate Fare</button>
-
-                <div id="result" class="result hidden">
-                    <div class="result-details">
-                        <div class="detail-item">
-                            <span class="label">Distance:</span>
-                            <span id="distance" class="value">-</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Estimated Time:</span>
-                            <span id="duration" class="value">-</span>
-                        </div>
-                        <div class="detail-item total">
-                            <span class="label">Estimated Fare:</span>
-                            <span id="fare" class="value">-</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="map" class="map hidden"></div>
-
-                <div id="error" class="error hidden"></div>
+            <div class="detail-item">
+              <span class="label">Estimated Time:</span>
+              <span id="duration" class="value">-</span>
             </div>
-        </div>
-    </section>
-
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2>About Us</h2>
-            <div class="about-content">
-                <p>Welcome to Marek Taxi! I provide professional, reliable taxi services with years of driving experience. Whether you need a ride to the airport, a business meeting, or just around town, I'm here to help.</p>
-                <div class="features">
-                    <div class="feature">
-                        <h3>🕐 Available 24/7</h3>
-                        <p>Ready to serve you anytime</p>
-                    </div>
-                    <div class="feature">
-                        <h3>💰 Fair Pricing</h3>
-                        <p>Transparent, route-based fares</p>
-                    </div>
-                    <div class="feature">
-                        <h3>✨ Clean & Comfortable</h3>
-                        <p>Well-maintained vehicle</p>
-                    </div>
-                </div>
+            <div class="detail-item total">
+              <span class="label">Estimated Fare:</span>
+              <span id="fare" class="value">-</span>
             </div>
+          </div>
         </div>
-    </section>
+        <div id="map" class="map hidden"></div>
+      </div>
 
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>Contact & Booking</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h3>📞 Phone</h3>
-                    <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>📧 Email</h3>
-                    <p><a href="mailto:info@marektaxi.com">info@marektaxi.com</a></p>
-                </div>
-                <div class="contact-item">
-                    <h3>⏰ Hours</h3>
-                    <p>Available 24/7</p>
-                </div>
+      <!-- Fixed routes tab -->
+      <div id="panel-fixed" class="tab-panel calculator-card hidden">
+        <p class="fixed-intro">Choose from our most popular routes with guaranteed fixed prices.</p>
+        <div id="fixed-routes-list"></div>
+        <div id="fixed-result" class="result hidden">
+          <div class="result-details">
+            <div class="detail-item total">
+              <span class="label">Fixed Fare:</span>
+              <span id="fixed-fare" class="value">-</span>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Marek Taxi. All rights reserved.</p>
+      <div id="error" class="error hidden"></div>
+    </div>
+  </section>
+
+  <!-- Booking form — shown after route selected -->
+  <section id="booking-form-section" class="booking-section hidden">
+    <div class="container">
+      <div class="calculator-card">
+        <h3>Complete Your Booking</h3>
+        <div id="booking-summary" class="booking-summary"></div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-name">Full Name</label>
+            <input type="text" id="booking-name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="booking-phone">Phone Number</label>
+            <input type="tel" id="booking-phone" placeholder="+44 7700 000000">
+          </div>
         </div>
-    </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-email">Email Address</label>
+            <input type="email" id="booking-email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label for="booking-datetime">Pickup Date & Time</label>
+            <input type="datetime-local" id="booking-datetime">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="booking-notes">Notes (optional)</label>
+          <input type="text" id="booking-notes" placeholder="Flight number, special requirements...">
+        </div>
+
+        <button id="book-pay-btn" class="btn-primary btn-pay" onclick="submitBooking()">Book & Pay</button>
+        <p class="payment-note">You will be redirected to our secure payment page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container">
+      <h2>About Us</h2>
+      <div class="about-content">
+        <p>Welcome to Marek Taxi! I provide professional, reliable taxi services with years of driving experience. Whether you need a ride to the airport, a business meeting, or just around town, I'm here to help.</p>
+        <div class="features">
+          <div class="feature">
+            <h3>🕐 Available 24/7</h3>
+            <p>Ready to serve you anytime</p>
+          </div>
+          <div class="feature">
+            <h3>💰 Fair Pricing</h3>
+            <p>Transparent, route-based fares</p>
+          </div>
+          <div class="feature">
+            <h3>✨ Clean & Comfortable</h3>
+            <p>Well-maintained vehicle</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2>Contact & Booking</h2>
+      <div class="contact-info">
+        <div class="contact-item">
+          <h3>📞 Phone</h3>
+          <p><a href="tel:+441234567890">+44 7700 000000</a></p>
+        </div>
+        <div class="contact-item">
+          <h3>📧 Email</h3>
+          <p><a href="mailto:info@marektaxi.com">info@marektaxi.com</a></p>
+        </div>
+        <div class="contact-item">
+          <h3>⏰ Hours</h3>
+          <p>Available 24/7</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Marek Taxi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/availability.js"></script>
+  <script src="js/payment.js"></script>
+  <script>
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      renderFixedRoutes();
+      document.getElementById('pickup').addEventListener('input', e => handleLocationInput(e, 'pickup'));
+      document.getElementById('dropoff').addEventListener('input', e => handleLocationInput(e, 'dropoff'));
+      document.getElementById('calculate-btn').addEventListener('click', calculateDynamicFare);
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.form-group'))
+          document.querySelectorAll('.suggestions').forEach(s => s.classList.remove('active'));
+      });
+    });
+
+    function switchTab(tab) {
+      document.getElementById('panel-dynamic').classList.toggle('hidden', tab !== 'dynamic');
+      document.getElementById('panel-fixed').classList.toggle('hidden', tab !== 'fixed');
+      document.getElementById('tab-dynamic').classList.toggle('active', tab === 'dynamic');
+      document.getElementById('tab-fixed').classList.toggle('active', tab === 'fixed');
+      document.getElementById('booking-form-section').classList.add('hidden');
+      document.getElementById('error').classList.add('hidden');
+      currentBooking = null;
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+
+    function hideError() {
+      document.getElementById('error').classList.add('hidden');
+    }
+  </script>
 </body>
 </html>
