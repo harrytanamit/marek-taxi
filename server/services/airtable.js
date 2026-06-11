@@ -18,16 +18,18 @@ async function createBooking(data) {
     Duration:      data.durationMin || 90,
     Type:          data.type,
     Notes:         data.notes || '',
-    Status:        'reserved',
+    Status:        'Pending',
     ReservedUntil: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
     PaymentId:     '',
-  }, { typecast: true }); // typecast allows creating new select options automatically
+  });
   return record.id;
 }
 
+const STATUS = { reserved: 'Pending', paid: 'Paid', cancelled: 'Cancelled' };
+
 async function updateBookingStatus(recordId, status, paymentId) {
   await base(BOOKINGS).update(recordId, {
-    Status:    status,
+    Status:    STATUS[status] || status,
     PaymentId: paymentId || '',
     ...(status === 'paid' ? { ConfirmationSent: false } : {}),
   });
@@ -51,7 +53,7 @@ async function checkAvailability(datetime, durationMin) {
 
   // 1. Check existing bookings
   const bookings = await base(BOOKINGS).select({
-    filterByFormula: `OR({Status} = 'reserved', {Status} = 'paid')`,
+    filterByFormula: `OR({Status} = 'Pending', {Status} = 'Paid')`,
   }).all();
 
   for (const b of bookings) {
@@ -75,12 +77,11 @@ async function checkAvailability(datetime, durationMin) {
 
 // Expire stale reservations (call on server start + periodically)
 async function expireReservations() {
-  const now = new Date().toISOString();
   const records = await base(BOOKINGS).select({
-    filterByFormula: `AND({Status} = 'reserved', {ReservedUntil} < '${now}')`,
+    filterByFormula: `AND({Status} = 'Pending', IS_BEFORE({ReservedUntil}, NOW()))`,
   }).all();
   for (const r of records) {
-    await base(BOOKINGS).update(r.id, { Status: 'cancelled' });
+    await base(BOOKINGS).update(r.id, { Status: 'Cancelled' });
   }
 }
 
